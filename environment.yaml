@@ -1,0 +1,14 @@
+name: sdc3_h21cm_generator
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8
+  - 21cmfast=3.1.4
+  - astropy
+  - matplotlib
+  - numpy=1.22.3
+  - pip
+  - toml
+  - pip:
+    - git+https://github.com/SimonP2207/tools21cm.git
