@@ -1,0 +1,40 @@
+[output]
+output_dcy = "/output/path/for/EoR_Cube/"  # Root directory for outputs
+root_name = "My_EoR_H21cm"                 # Prefix for all pipeline products
+
+[field]
+ra0 = 0.0     # Right Ascension for central coordinate [deg]
+dec0 = -30.0  # Declination for central coordinate [deg]
+fov = 8.0     # Field of view for the output cube [deg]
+n_cell = 512  # Number of cells per side for the output cube
+
+[correlator]
+freq_min = 106000000.0  # Frequency of first channel in cube [Hz]
+freq_max = 200000000.0  # Frequency of last channel in cube [Hz]
+nchan = 941             # Number of frequency channels in cube (third axis)
+
+[astro_params]  # All parameters for EoR realisation for 21cmfast
+F_STAR10 = -1.5         # Log10 of the fraction of galactic gas in stars for 10^10 solar mass haloes. Should be between -3.0 to 0.0
+ALPHA_STAR = 0.25       # Power-law index of fraction of galactic gas in stars as a function of halo mass. Should be between -0.5 and 1.0
+F_ESC10 = -1.5          # Log10 of the 'escape fraction', i.e. the fraction of ionizing photons escaping into the IGM, for 10^10 solar mass haloes. Should be between -3.0 and 0.0
+ALPHA_ESC = -0.25       # Power-law index of escape fraction as a function of halo mass. Should be between -1.0 and 0.5
+M_TURN = 9.0            # Turnover mass (in log10 solar mass units) for quenching of star formation in halos, due to SNe or photo-heating feedback, or inefficient gas accretion. Should be between 8.0 and 10.0
+t_STAR = 0.5            # Fractional characteristic time-scale (fraction of Hubble time) defining the star-formation rate of galaxies. Should be between 0.01 and 1.0
+L_X = 40.0              # Log10 of the specific X-ray luminosity per unit star formation escaping host galaxies. Should be between 38.0 and 44.0
+NU_X_THRESH = 500.0     # X-ray energy threshold for self-absorption by host galaxies in eV. Should be between 100 and 1500
+X_RAY_SPEC_INDEX = 1.0  # X-ray spectral energy index. Should be between -1.0 and 3.0
+
+[user_params]
+seed = 123                       # Random number seed
+n_cpu = 8                        # Number of CPUs to use in parallelised parts of pipeline
+USE_FFTW_WISDOM = true           # Passed to 21cmfast. Whether or not to use stored FFTW_WISDOMs for improving performance of FFTs
+PERTURB_ON_HIGH_RES = true       # Passed to 21cmfast. Whether to perform the Zel'Dovich or 2LPT perturbation on the low or high resolution grid
+USE_INTERPOLATION_TABLES = true  # Passed to 21cmfast. Whether to use interpolation tables (runs faster if True)
+plot_lc = true                   # Whether to save a plot of the resultant lightcone (L vs z)
+
+[flags]  # All flags passed to 21cmfast
+INHOMO_RECO = true              # Compute inhomogeneous recombinations?
+USE_MASS_DEPENDENT_ZETA = true  # Allow ionizing efficiency, zeta, to scale with the halo mass?
+USE_TS_FLUCT = true             # Whether to perform IGM spin temperature fluctuations (i.e. X-ray heating). Dramatically increases the computation time.
+USE_MINI_HALOS = false          # Whether to use updated radiation source model with: (i) all radiation fields including X-rays, UV ionizing, Lyman Werner and Lyman alpha are considered from two seperated population namely atomic-cooling (ACGs) and minihalo-hosted molecular-cooling galaxies (MCGs) (ii) the turn-over masses of ACGs and MCGs are estimated with cooling efficiency and feedback from reionization and lyman werner suppression (Qin et al. 2020). If True, must scale zeta with halo mass and compute inhomogeneous recombinations
+PHOTON_CONS = true              # Whether to perform a small correction to account for the inherent photon non-conservation
