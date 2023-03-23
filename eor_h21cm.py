@@ -320,7 +320,7 @@ if __name__ == '__main__':
                             help="Set terminal log output to verbose levels",
                             action="store_true")
         args = parser.parse_args()
-        param_file = pathlib.Path(args.params_file)
+        param_file = pathlib.Path(args.param_file)
 
         if not param_file.exists():
             raise FileNotFoundError(f"{param_file} does not exist")
